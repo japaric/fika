@@ -1,0 +1,9 @@
+//! FIxed KApacity stuff
+
+#![deny(missing_docs)]
+#![cfg_attr(not(test), no_std)]
+#![deny(clippy::missing_safety_doc)]
+#![deny(clippy::undocumented_unsafe_blocks)]
+
+pub mod object_pool;
+mod treiber;

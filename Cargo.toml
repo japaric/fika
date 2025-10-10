@@ -1,0 +1,8 @@
+[package]
+edition = "2024"
+license = "MIT OR Apache-2.0"
+name = "fika"
+publish = false
+
+[lib]
+doctest = false

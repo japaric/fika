@@ -1,0 +1,11 @@
+[toolchain]
+channel = "1.90.0"
+components = [
+  "clippy",
+  "rust-analyzer",
+  "rustfmt",
+]
+targets = [
+  "armv7-unknown-linux-musleabi"
+]
+profile = "minimal"
