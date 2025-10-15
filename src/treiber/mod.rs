@@ -107,10 +107,46 @@ impl<T> OwningNodePtr<T> {
         }
     }
 
+    pub fn into_shared(self) -> SharedNodePtr<T> {
+        SharedNodePtr { inner: self.inner }
+    }
+
     /// # Safety
     /// - To prevent aliasing the original handle (`self`) must not be used after this operation
     pub unsafe fn copy(&self) -> Self {
         Self { inner: self.inner }
+    }
+}
+
+/// A shared pointer into a statically allocated (`'static`) node
+#[repr(transparent)]
+pub(crate) struct SharedNodePtr<T> {
+    inner: NonNull<Node<T>>,
+}
+
+impl<T> SharedNodePtr<T> {
+    /// # Safety
+    /// - Caller must ensure this is the last remaining shared instance
+    pub unsafe fn into_owning(self) -> OwningNodePtr<T> {
+        OwningNodePtr { inner: self.inner }
+    }
+}
+
+impl<T> Copy for SharedNodePtr<T> {}
+
+impl<T> Clone for SharedNodePtr<T> {
+    fn clone(&self) -> Self {
+        *self
+    }
+}
+
+impl<T> ops::Deref for SharedNodePtr<T> {
+    type Target = T;
+
+    fn deref(&self) -> &Self::Target {
+        // SAFETY: Given the `OwningNodePtr::new` constructor, the data is always valid (never
+        // deallocated) and the owning nature ensures aliasing rules are respected.
+        unsafe { &self.inner.as_ref().data }
     }
 }
 

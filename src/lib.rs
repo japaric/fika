@@ -5,6 +5,7 @@
 #![deny(clippy::missing_safety_doc)]
 #![deny(clippy::undocumented_unsafe_blocks)]
 
+pub mod arc_pool;
 pub mod box_pool;
 pub mod object_pool;
 mod treiber;
