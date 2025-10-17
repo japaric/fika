@@ -102,6 +102,18 @@ impl<T> Drop for Object<T> {
     }
 }
 
+impl<const N: usize> AsRef<[u8]> for Object<[u8; N]> {
+    fn as_ref(&self) -> &[u8] {
+        &**self
+    }
+}
+
+impl<const N: usize> AsMut<[u8]> for Object<[u8; N]> {
+    fn as_mut(&mut self) -> &mut [u8] {
+        &mut **self
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use core::sync::atomic::{self, AtomicBool};
