@@ -8,5 +8,6 @@
 pub mod arc_pool;
 pub mod box_pool;
 pub mod object_pool;
+pub mod spsc;
 mod treiber;
 pub mod vec;

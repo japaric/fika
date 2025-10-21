@@ -19,10 +19,12 @@ where
 {
     /// Creates a new empty vector
     pub const fn new(storage: S) -> Self {
-        assert!(
-            0 != mem::size_of::<T>(),
-            "zero-sized types are currently not supported"
-        );
+        const {
+            assert!(
+                0 != mem::size_of::<T>(),
+                "zero-sized types are currently not supported"
+            );
+        }
 
         Self {
             storage,
